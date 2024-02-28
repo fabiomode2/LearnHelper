@@ -54,7 +54,7 @@ export const NewRel = ({ onDone }: Props) => {
       setErrorValue("Give it a name!");
       return;
     }
-    //Calculate numbmer of data added to have a min. amount
+    //Calculate number of data added to have a min. amount
     let relNumber = 0;
     relData.map((item) => {
       if (item.expression && item.meaning) {
@@ -76,7 +76,7 @@ export const NewRel = ({ onDone }: Props) => {
 
   return (
     <div className="col flex-column sb">
-      <h2>Nueva relación</h2>
+      <h2>New relation</h2>
       <div className="d-flex align-items-center justify-content-center">
         <input
           className="relational-input w-25"

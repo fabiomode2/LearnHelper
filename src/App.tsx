@@ -10,6 +10,8 @@ import SmallCard from "./components/SmallCard";
 import { SimpleRelation, DataCard } from "./components/types";
 import AskRel from "./components/AskRel";
 
+//this code is a mess
+
 function App() {
   // const [AllData, changeAllData] = useState<DataCard[]>([]);
 
@@ -20,12 +22,17 @@ function App() {
   const [createFormVisibility, changeFormVisibility] = useState(false);
   const [NewRelVisibility, changeRelVisibility] = useState(false);
   const [createTextVisibility, changeTextVisibility] = useState(false);
+  const [AskRelVisibility, changeAskRelVisibility] = useState(false);
+
+  const [AskRelC, changeAskRelC] = useState(<></>);
 
   const secondarys = [
     changeRelVisibility,
     changeTextVisibility,
     changeFormVisibility,
+    changeAskRelVisibility,
   ];
+  //Implementacion de una relation para testeo mientras no implemento el almacenamiento de datos en el navegador
   let dc: DataCard = {
     name: "hola",
     data: [
@@ -37,6 +44,11 @@ function App() {
   data = [dc];
 
   const RelClicked = (data: DataCard) => {
+    changeMainTabVisibility(false);
+    secondarys.map((item) => item(false));
+
+    changeAskRelC(<AskRel data={data} />);
+
     console.log(data);
   };
 
@@ -69,13 +81,19 @@ function App() {
   const Manager = (type: string) => {
     changeMainTabVisibility(false);
 
+    console.log(type);
+
     if (type == "formula") {
       changeFormVisibility(true);
     } else if (type == "relation") {
       changeRelVisibility(true);
     } else if (type == "text") {
       changeTextVisibility(true);
-    } else {
+    }
+    // else if (type == "askRel") {
+    //   changeGetAsked(true);
+    // }
+    else {
       changeMainTabVisibility(true);
       secondarys.map((item) => item(false));
     }
@@ -97,7 +115,6 @@ function App() {
             />
           ))}
         </Page>
-
         <Page visible={createFormVisibility}>
           <CloseButton onClick={Manager} />
         </Page>
@@ -108,9 +125,12 @@ function App() {
         <Page visible={createTextVisibility}>
           <CloseButton onClick={Manager} />
         </Page>
+        <Page visible={AskRelVisibility}>
+          {AskRelC}
+          <CloseButton onClick={Manager} />
+        </Page>
       </MainBoard>
     </>
   );
 }
-
 export default App;
