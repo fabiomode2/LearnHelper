@@ -39,6 +39,9 @@ function App() {
       { exp: "one", men: "1" },
       { exp: "two", men: "2" },
       { exp: "three", men: "3" },
+      { exp: "four", men: "4" },
+      { exp: "five", men: "5" },
+      { exp: "six", men: "6" },
     ],
     type: "relation",
   };

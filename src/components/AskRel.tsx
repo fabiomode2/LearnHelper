@@ -18,8 +18,8 @@ const GetRandomItem = (lista: SimpleRelation[]) => {
 
 export const AskRel = ({ data }: Props) => {
   const [CurrentQuestion, changeCurrentQuestion] = useState<question>();
-  const [alreadyResponded, changeAlreadyResponded] = useState(false);
-  const [finalMessage, changeFinalMessage] = useState("");
+  const [alreadyResponded, changeAlreadyResponded] = useState(true);
+  const [finalMessage, changeFinalMessage] = useState("Get Asked");
 
   const keepgoing = () => {
     changeAlreadyResponded(false);
@@ -57,19 +57,20 @@ export const AskRel = ({ data }: Props) => {
     }
   };
 
-  changeCurrentQuestion(GetQuestion());
   return (
-    <>
+    <div className="align-items-center justify-content-center">
       <div className="row">
         <h1>{data.name}</h1>
       </div>
-      <div className="row">{CurrentQuestion?.pregunta}</div>
       <div className="row">
+        <h5>{CurrentQuestion?.pregunta}</h5>
+      </div>
+      <div className="row align-items-center justify-content-center">
         {CurrentQuestion?.opciones.map((value) => {
           return (
             <button
               type="button"
-              className="btn btn-info"
+              className="btn btn-info w-25 m-4"
               onClick={() => Answer(value)}
               key={value}
             >
@@ -78,25 +79,24 @@ export const AskRel = ({ data }: Props) => {
           );
         })}
       </div>
-      (
+
       {alreadyResponded ? (
         <>
-          <div className="col">
-            {finalMessage}
+          <h3>{finalMessage}</h3>
+          <div className="row align-items-center justify-content-center p-5">
             <button
               type="button"
-              className="btn btn-success"
+              className="btn btn-success w-25"
               onClick={keepgoing}
             >
-              Continue
+              Next question
             </button>
           </div>
         </>
       ) : (
         <></>
       )}
-      )
-    </>
+    </div>
   );
 };
 
