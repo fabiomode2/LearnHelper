@@ -10,7 +10,7 @@ import SmallCard from "./components/SmallCard";
 import { SimpleRelation, DataCard } from "./components/types";
 import AskRel from "./components/AskRel";
 
-//this code is a mess
+//top peores codigos ever written
 
 function App() {
   // const [AllData, changeAllData] = useState<DataCard[]>([]);
@@ -40,16 +40,19 @@ function App() {
       { exp: "two", men: "2" },
       { exp: "three", men: "3" },
     ],
+    type: "relation",
   };
   data = [dc];
 
-  const RelClicked = (data: DataCard) => {
-    changeMainTabVisibility(false);
-    secondarys.map((item) => item(false));
+  const StoredClicked = (type: string, data: DataCard) => {
+    if (type == "relation") {
+      changeMainTabVisibility(false);
+      secondarys.map((item) => item(false));
 
-    changeAskRelC(<AskRel data={data} />);
+      changeAskRelC(<AskRel data={data} />);
 
-    console.log(data);
+      console.log(data);
+    }
   };
 
   const RelDone = (array: Relation[]) => {
@@ -110,8 +113,9 @@ function App() {
             <SmallCard
               key={index}
               title={item.name}
-              onClick={RelClicked}
+              onClick={StoredClicked}
               data={item}
+              type={item.type}
             />
           ))}
         </Page>

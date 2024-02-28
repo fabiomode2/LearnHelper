@@ -2,11 +2,12 @@ import { DataCard } from "./types";
 
 interface Props {
   title: string;
-  onClick: (data: DataCard) => void;
+  onClick: (type: string, data: DataCard) => void;
   data: DataCard;
+  type: string;
 }
 
-export const SmallCard = ({ title, onClick, data }: Props) => {
+export const SmallCard = ({ title, onClick, data, type }: Props) => {
   //style="width: 18rem;"
   return (
     <>
@@ -16,7 +17,7 @@ export const SmallCard = ({ title, onClick, data }: Props) => {
           <button
             className="btn btn-info"
             onClick={() => {
-              onClick(data);
+              onClick(type, data);
             }}
           >
             Ask me!
