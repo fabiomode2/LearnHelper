@@ -76,7 +76,7 @@ export const NewRel = ({ onDone }: Props) => {
 
   return (
     <div className="col flex-column sb">
-      <h2>New Relational</h2>
+      <h2>Nueva relación</h2>
       <div className="d-flex align-items-center justify-content-center">
         <input
           className="relational-input w-25"
