@@ -34,7 +34,7 @@ function App() {
   ];
   //Implementacion de una relation para testeo mientras no implemento el almacenamiento de datos en el navegador
   let dc: DataCard = {
-    name: "hola",
+    name: "Numeros en Ingles",
     data: [
       { exp: "one", men: "1" },
       { exp: "two", men: "2" },
@@ -50,8 +50,7 @@ function App() {
       secondarys.map((item) => item(false));
 
       changeAskRelC(<AskRel data={data} />);
-
-      console.log(data);
+      changeAskRelVisibility(true);
     }
   };
 
