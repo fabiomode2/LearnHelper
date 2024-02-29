@@ -42,6 +42,10 @@ function App() {
       { exp: "four", men: "4" },
       { exp: "five", men: "5" },
       { exp: "six", men: "6" },
+      { exp: "seven", men: "7" },
+      { exp: "eight", men: "8" },
+      { exp: "nine", men: "9" },
+      { exp: "ten", men: "10" },
     ],
     type: "relation",
   };
@@ -52,7 +56,7 @@ function App() {
       changeMainTabVisibility(false);
       secondarys.map((item) => item(false));
 
-      changeAskRelC(<AskRel data={data} />);
+      changeAskRelC(<AskRel data={data} max_options={4} />);
       changeAskRelVisibility(true);
     }
   };

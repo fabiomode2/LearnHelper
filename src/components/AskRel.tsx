@@ -4,6 +4,7 @@ import { ShuffleList } from "./utils";
 
 interface Props {
   data: DataCard;
+  max_options: number;
 }
 
 interface question {
@@ -16,7 +17,7 @@ const GetRandomItem = (lista: SimpleRelation[]) => {
   return lista[Math.floor(Math.random() * lista.length)];
 };
 
-export const AskRel = ({ data }: Props) => {
+export const AskRel = ({ data, max_options }: Props) => {
   const [CurrentQuestion, changeCurrentQuestion] = useState<question>();
   const [alreadyResponded, changeAlreadyResponded] = useState(true);
   const [finalMessage, changeFinalMessage] = useState("Get Asked");
@@ -33,7 +34,10 @@ export const AskRel = ({ data }: Props) => {
       let i = GetRandomItem(data.data);
       if (!(answers.indexOf(i.men) > -1)) {
         answers.push(i.men);
-        if (answers.length > 2) {
+        if (
+          answers.length >= max_options ||
+          answers.length == data.data.length
+        ) {
           break;
         }
       }
@@ -58,24 +62,26 @@ export const AskRel = ({ data }: Props) => {
   };
 
   return (
-    <div className="align-items-center justify-content-center">
+    <div className="align-items-center justify-content-center h-50 p-5">
       <div className="row">
         <h1>{data.name}</h1>
       </div>
       <div className="row">
         <h5>{CurrentQuestion?.pregunta}</h5>
       </div>
-      <div className="row align-items-center justify-content-center">
+      <div className="row align-items-center justify-content-center p-5">
         {CurrentQuestion?.opciones.map((value) => {
           return (
-            <button
-              type="button"
-              className="btn btn-info w-25 m-4"
-              onClick={() => Answer(value)}
-              key={value}
-            >
-              {value}
-            </button>
+            <div className="row align-items-center justify-content-center">
+              <button
+                type="button"
+                className="btn btn-info w-25 fs-4 m-4"
+                onClick={() => Answer(value)}
+                key={value}
+              >
+                {value}
+              </button>
+            </div>
           );
         })}
       </div>
