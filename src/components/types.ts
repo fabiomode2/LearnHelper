@@ -6,7 +6,8 @@ export interface Relation {
 
 export  interface DataCard {
     name: string;
-    data: SimpleRelation[];
+    reldata: SimpleRelation[];
+    textdata: string;
     type: string;
   }
   
