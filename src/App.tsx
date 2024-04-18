@@ -12,20 +12,18 @@ import AskRel from "./components/AskRel";
 import AskText from "./components/AskText";
 import NewText from "./components/NewText";
 
-
 //top peores codigos ever written
 //hola texto que tal. mas texto separado por, coma e incluso. Puntos. Ver kiwi igual a morte.
 function App() {
   const [AllData, changeAllData] = useState<DataCard[]>([]);
 
-  localStorage.clear()
-  
+  localStorage.clear();
+
   const [MainTabVisibility, changeMainTabVisibility] = useState(true);
 
   const [createFormVisibility, changeFormVisibility] = useState(false);
   const [NewRelVisibility, changeRelVisibility] = useState(false);
   const [createTextVisibility, changeTextVisibility] = useState(false);
-
 
   const [AskRelVisibility, changeAskRelVisibility] = useState(false);
   const [AskRelC, changeAskRelC] = useState(<></>);
@@ -33,14 +31,12 @@ function App() {
   const [AskTextVisibility, changeAskTextVisibility] = useState(false);
   const [AskTextC, changeAskTextC] = useState(<></>);
 
-  
-
   const secondarys = [
     changeRelVisibility,
     changeTextVisibility,
     changeFormVisibility,
     changeAskRelVisibility,
-    changeAskTextVisibility
+    changeAskTextVisibility,
   ];
   //Implementacion de una relation para testeo mientras no implemento el almacenamiento de datos en el navegador
   // let dc: DataCard = {
@@ -60,15 +56,12 @@ function App() {
   //   type: "relation",
   // };
 
-  
-  if (localStorage.getItem("data") != null)
-  {changeAllData(JSON.parse(localStorage.getItem("data")!))
+  if (localStorage.getItem("data") != null) {
+    changeAllData(JSON.parse(localStorage.getItem("data")!));
   }
   // else {
   //   changeAllData([dc])
   // }
-
-
 
   const StoredClicked = (type: string, data: DataCard) => {
     if (type == "relation") {
@@ -77,54 +70,52 @@ function App() {
 
       //
 
-      changeAskRelC(<AskRel data={data} max_options={3} key={"unique"}/>);
+      changeAskRelC(<AskRel data={data} max_options={3} key={"unique"} />);
       changeAskRelVisibility(true);
-    }
-    else if (type == "text"){
+    } else if (type == "text") {
       changeMainTabVisibility(false);
       secondarys.map((item) => item(false));
 
       //
 
-      changeAskTextC(<AskText text={data.textdata} key={"unique2"}/>);
+      changeAskTextC(<AskText text={data.textdata} key={"unique2"} />);
       changeAskTextVisibility(true);
     }
   };
-  const TextDone = (text : string) => {
+  const TextDone = (text: string) => {
     changeTextVisibility(false);
     changeMainTabVisibility(true);
 
-    let name = text.substring(0, 9) + "..."
-    let type = "text"
+    let name = text.substring(0, 9) + "...";
+    let type = "text";
 
-        // Add the data to de "database"
-        let variable: DataCard = {
-          name: name,
-          reldata: [{exp: "not relation", men: "not relation"}],
-          textdata: text,
-          type: type
-        };
-        
-        //Add input data to saved
-        let temp = AllData
-        temp.push(variable)
-        changeAllData(temp)
-    
-    
-        localStorage.setItem("data", JSON.stringify(AllData));
+    // Add the data to de "database"
+    let variable: DataCard = {
+      name: name,
+      reldata: [{ exp: "not relation", men: "not relation" }],
+      textdata: text,
+      type: type,
+    };
 
-  }
+    //Add input data to saved
+    let temp = AllData;
+    temp.push(variable);
+    changeAllData(temp);
+
+    localStorage.setItem("data", JSON.stringify(AllData));
+  };
 
   const RelDone = (array: Relation[]) => {
     //Hide rel show main
-    console.log(array)
+    console.log(array);
     changeRelVisibility(false);
     changeMainTabVisibility(true);
     //Get and format data
     let dataFormated: SimpleRelation[] = [];
     array.map((item) => {
-      if((item.expression != "") && (item.meaning != "")){
-      dataFormated.push({ exp: item.expression, men: item.meaning });}
+      if (item.expression != "" && item.meaning != "") {
+        dataFormated.push({ exp: item.expression, men: item.meaning });
+      }
     });
     //Get name
     let name = "";
@@ -132,24 +123,22 @@ function App() {
       if (item.key == -1) {
         name = item.expression;
       }
-
     });
     // Add the data to de "database"
     let variable: DataCard = {
       name: name,
       reldata: dataFormated,
       textdata: "",
-      type: "relation"
+      type: "relation",
     };
-    
-    //Add input data to saved
-    let temp = AllData
-    temp.push(variable)
-    changeAllData(temp)
 
+    //Add input data to saved
+    let temp = AllData;
+    temp.push(variable);
+    changeAllData(temp);
 
     localStorage.setItem("data", JSON.stringify(AllData));
-    console.log("data: ", localStorage.getItem("data"))
+    console.log("data: ", localStorage.getItem("data"));
   };
 
   const Manager = (type: string) => {
@@ -180,24 +169,15 @@ function App() {
           <h1 className="p-5">Learn Helper</h1>
           <CreateRow somethingCreated={Manager} />
           <hr />
-          {/* GRID */}
-          <div className="grid-class">
-            {/* ITEM GRID */}
           {AllData.map((item, index) => (
-            <div className="grid-item">
-              <SmallCard
+            <SmallCard
               key={index}
               title={item.name}
               onClick={StoredClicked}
               data={item}
               type={item.type}
             />
-            </div>
-
           ))}
-          {/* END GRID */}
-          </div>
-
         </Page>
         <Page visible={createFormVisibility}>
           <CloseButton onClick={Manager} />
@@ -208,7 +188,7 @@ function App() {
         </Page>
         <Page visible={createTextVisibility}>
           <CloseButton onClick={Manager} />
-          <NewText onDone={TextDone}/>
+          <NewText onDone={TextDone} />
         </Page>
         <Page visible={AskRelVisibility}>
           {AskRelC}
@@ -222,4 +202,5 @@ function App() {
     </>
   );
 }
+
 export default App;
