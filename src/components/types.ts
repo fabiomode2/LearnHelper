@@ -19,3 +19,7 @@ export  interface SimpleRelation {
 export interface StoredDataType{
   type : "relation" | "text" | "formula"
 }
+
+export const ItemTypes = {
+  CARD: 'card',
+}

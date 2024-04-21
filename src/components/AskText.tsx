@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 // import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { seleccionarFrases } from "./utils";
 
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
+import { Container } from "./DropableContainer";
+
 interface Props {
   text: string;
 }
@@ -33,15 +38,11 @@ const AskText = ({ text }: Props) => {
           <li className="listitem">
             <p className="raleway-f coolp">{clueSentences[0]}</p>
           </li>
-          <li className="listitem">
-            <div className="drag_aim raleway-f coolp"> </div>
-          </li>
-          <li className="listitem">
-            <div className="drag_aim raleway-f coolp"> </div>
-          </li>
-          <li className="listitem">
-            <div className="drag_aim raleway-f coolp"> </div>
-          </li>
+
+          <DndProvider backend={HTML5Backend}>
+            <Container />
+          </DndProvider>
+
           <li className="listitem">
             <p className="raleway-f coolp">{clueSentences[1]}</p>
           </li>
