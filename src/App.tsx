@@ -1,3 +1,21 @@
+//Implementacion de una relation para testeo mientras no implemento el almacenamiento de datos en el navegador
+// let dc: DataCard = {
+//   name: "Numeros en Ingles",
+//   data: [
+//     { exp: "one", men: "1" },
+//     { exp: "two", men: "2" },
+//     { exp: "three", men: "3" },
+//     { exp: "four", men: "4" },
+//     { exp: "five", men: "5" },
+//     { exp: "six", men: "6" },
+//     { exp: "seven", men: "7" },
+//     { exp: "eight", men: "8" },
+//     { exp: "nine", men: "9" },
+//     { exp: "ten", men: "10" },
+//   ],
+//   type: "relation",
+// };
+
 import "./App.css";
 import MainBoard from "./components/MainBoard";
 import CreateRow from "./components/CreateRow";
@@ -13,9 +31,18 @@ import AskText from "./components/AskText";
 import NewText from "./components/NewText";
 import NewForm from "./components/NewForm";
 import FormulaCard from "./components/FormulaCard";
+import Formulas from "./components/Formulas";
 
 function App() {
   const [AllData, changeAllData] = useState<DataCard[]>([]);
+  const [FormulaData, changeFormulaData] = useState<Formula[]>([
+    { name: "Ec. 2º Grado", formula: "x = 2a−b ± sqrt(b^2−4ac)" },
+    { name: "Área del rectángulo", formula: "A = l × w" },
+    { name: "Área del triángulo", formula: "A = 1/2 × b × h" },
+    { name: "Área del círculo", formula: "A = π × r^2" },
+    { name: "Volumen del cubo", formula: "V = s^3" },
+    { name: "Volumen del prisma rectangular", formula: "V = A_base × h" },
+  ]);
 
   localStorage.clear();
 
@@ -31,30 +58,17 @@ function App() {
   const [AskTextVisibility, changeAskTextVisibility] = useState(false);
   const [AskTextC, changeAskTextC] = useState(<></>);
 
+  const [viewFormulasVisibility, changeViewFormulasVisibility] =
+    useState(false);
+
   const secondarys = [
     changeRelVisibility,
     changeTextVisibility,
     changeFormVisibility,
     changeAskRelVisibility,
     changeAskTextVisibility,
+    changeViewFormulasVisibility,
   ];
-  //Implementacion de una relation para testeo mientras no implemento el almacenamiento de datos en el navegador
-  // let dc: DataCard = {
-  //   name: "Numeros en Ingles",
-  //   data: [
-  //     { exp: "one", men: "1" },
-  //     { exp: "two", men: "2" },
-  //     { exp: "three", men: "3" },
-  //     { exp: "four", men: "4" },
-  //     { exp: "five", men: "5" },
-  //     { exp: "six", men: "6" },
-  //     { exp: "seven", men: "7" },
-  //     { exp: "eight", men: "8" },
-  //     { exp: "nine", men: "9" },
-  //     { exp: "ten", men: "10" },
-  //   ],
-  //   type: "relation",
-  // };
 
   if (localStorage.getItem("data") != null) {
     changeAllData(JSON.parse(localStorage.getItem("data")!));
@@ -79,6 +93,13 @@ function App() {
       changeAskTextVisibility(true);
     }
   };
+
+  const ViewForms = () => {
+    changeMainTabVisibility(false);
+    secondarys.map((item) => item(false));
+    changeViewFormulasVisibility(true);
+  };
+
   const TextDone = (text: string) => {
     changeTextVisibility(false);
     changeMainTabVisibility(true);
@@ -102,9 +123,28 @@ function App() {
     localStorage.setItem("data", JSON.stringify(AllData));
   };
 
+  const FormDone = (name: String, formula: String) => {
+    changeFormVisibility(false);
+    changeMainTabVisibility(true);
+
+    let form: Formula = {
+      name: name,
+      formula: formula,
+    };
+
+    let temp = FormulaData;
+    temp.push(form);
+    changeFormulaData(temp);
+
+    //No añado formulas a la database porque da bastante igual
+
+    // localStorage.setItem("form", JSON.stringify(FormulaData));
+    // console.log("data: ", localStorage.getItem("data"));
+  };
+
   const RelDone = (array: Relation[]) => {
     //Hide rel show main
-    console.log(array);
+    // console.log(array);
     changeRelVisibility(false);
     changeMainTabVisibility(true);
     //Get and format data
@@ -166,11 +206,7 @@ function App() {
           <h1 className="p-5">Learn Helper</h1>
           <CreateRow somethingCreated={Manager} />
           <hr />
-          <FormulaCard
-            title="Formulas"
-            data={[]}
-            onClick={(data: Formula[]) => {}}
-          />
+          <FormulaCard title="Formulas" onClick={ViewForms} />
           {/* GRID */}
           <div className="grid-class">
             {/* ITEM GRID */}
@@ -188,9 +224,13 @@ function App() {
             {/* END GRID */}
           </div>
         </Page>
+        <Page visible={viewFormulasVisibility}>
+          <CloseButton onClick={Manager} />
+          <Formulas data={FormulaData} />
+        </Page>
         <Page visible={createFormVisibility}>
           <CloseButton onClick={Manager} />
-          <NewForm />
+          <NewForm onDone={FormDone} />
         </Page>
         <Page visible={NewRelVisibility}>
           <CloseButton onClick={Manager} />

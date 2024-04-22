@@ -22,9 +22,6 @@ const AskText = ({ text }: Props) => {
   const verificarRespuestas = (frase: String) => {
     changeAlreadyAsked(true);
 
-    console.log(frase);
-    console.log(fraseCorrecta);
-
     if (frase == fraseCorrecta) {
       ChangeFraseFinal("✅Correct!✅");
     } else {
@@ -37,6 +34,8 @@ const AskText = ({ text }: Props) => {
     ChangeFraseFinal("");
 
     const nuevasFrases = seleccionarFrases(text_dividido);
+
+    console.log("cambiando frases..");
 
     changeClueSentences([nuevasFrases[1], nuevasFrases[3]]);
     frases_seleccionadas = [nuevasFrases[0], nuevasFrases[2], nuevasFrases[4]];

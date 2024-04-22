@@ -1,12 +1,9 @@
-import { Formula } from "./types";
-
 interface Props {
   title: string;
-  onClick: (data: Formula[]) => void;
-  data: Formula[];
+  onClick: () => void;
 }
 
-export const FormulaCard = ({ title, onClick, data }: Props) => {
+export const FormulaCard = ({ title, onClick }: Props) => {
   //style="width: 18rem;"
   return (
     <>
@@ -16,7 +13,7 @@ export const FormulaCard = ({ title, onClick, data }: Props) => {
           <button
             className="btn btn-outline-warning"
             onClick={() => {
-              onClick(data);
+              onClick();
             }}
           >
             Check Formulas
