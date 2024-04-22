@@ -139,3 +139,14 @@
 .mm-2{
     margin: 2em;
 }
+
+
+.ta-c{
+    text-align: center;
+    
+}
+
+input[type="text"]
+{
+    font-size:24px;
+}

@@ -5,15 +5,15 @@ import NewRel from "./components/NewRel";
 import Page from "./components/Page";
 import { CloseButton } from "./components/CloseButton";
 import { useState } from "react";
-import { Relation } from "./components/types";
+import { Formula, Relation } from "./components/types";
 import SmallCard from "./components/SmallCard";
 import { SimpleRelation, DataCard } from "./components/types";
 import AskRel from "./components/AskRel";
 import AskText from "./components/AskText";
 import NewText from "./components/NewText";
+import NewForm from "./components/NewForm";
+import FormulaCard from "./components/FormulaCard";
 
-//top peores codigos ever written
-//hola texto que tal. mas texto separado por, coma e incluso. Puntos. Ver kiwi igual a morte.
 function App() {
   const [AllData, changeAllData] = useState<DataCard[]>([]);
 
@@ -59,9 +59,6 @@ function App() {
   if (localStorage.getItem("data") != null) {
     changeAllData(JSON.parse(localStorage.getItem("data")!));
   }
-  // else {
-  //   changeAllData([dc])
-  // }
 
   const StoredClicked = (type: string, data: DataCard) => {
     if (type == "relation") {
@@ -169,6 +166,11 @@ function App() {
           <h1 className="p-5">Learn Helper</h1>
           <CreateRow somethingCreated={Manager} />
           <hr />
+          <FormulaCard
+            title="Formulas"
+            data={[]}
+            onClick={(data: Formula[]) => {}}
+          />
           {/* GRID */}
           <div className="grid-class">
             {/* ITEM GRID */}
@@ -188,6 +190,7 @@ function App() {
         </Page>
         <Page visible={createFormVisibility}>
           <CloseButton onClick={Manager} />
+          <NewForm />
         </Page>
         <Page visible={NewRelVisibility}>
           <CloseButton onClick={Manager} />

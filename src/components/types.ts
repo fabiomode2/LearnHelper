@@ -23,3 +23,9 @@ export interface StoredDataType{
 export const ItemTypes = {
   CARD: 'card',
 }
+
+
+export interface Formula{
+  formula : String,
+  name: String
+}
