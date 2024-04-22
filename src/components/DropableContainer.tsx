@@ -14,25 +14,13 @@ export interface Item {
 }
 
 export interface ContainerState {
-  cards: Item[];
+  cardss: Item[];
 }
 
-export const Container: FC = () => {
+export const Container: FC<ContainerState> = ({ cardss }) => {
   {
-    const [cards, setCards] = useState<Item[]>([
-      {
-        id: 1,
-        text: "Write a cool JS library",
-      },
-      {
-        id: 2,
-        text: "Make it generic enough",
-      },
-      {
-        id: 3,
-        text: "Write README",
-      },
-    ]);
+    const [cards, setCards] = useState<Item[]>(cardss);
+    console.log(cardss);
 
     const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
       setCards((prevCards: Item[]) =>

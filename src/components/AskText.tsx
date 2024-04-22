@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 // import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { seleccionarFrases } from "./utils";
 
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import { Container } from "./DropableContainer";
+import { Container, Item } from "./DropableContainer";
 
 interface Props {
   text: string;
@@ -14,12 +14,15 @@ interface Props {
 const AskText = ({ text }: Props) => {
   const text_dividido = text.split(".");
 
-  let frases_seleccionadas = seleccionarFrases(text_dividido);
+  let frases_seleccionadas: string[] = [];
+
+  const [cardItems, changeCardItems] = useState<Item[]>([]);
 
   const [clueSentences, changeClueSentences] = useState<String[]>([
     "Primera frase",
     "Ultima frase",
   ]);
+  const [sentecesToOrder, ChangeSentecesToOrder] = useState<String[]>([]);
   const [alreadyAsked, changeAlreadyAsked] = useState(true);
 
   const verificarRespuestas = () => {};
@@ -27,9 +30,18 @@ const AskText = ({ text }: Props) => {
   const generarPregunta = () => {
     const nuevasFrases = seleccionarFrases(text_dividido);
     changeClueSentences([nuevasFrases[0], nuevasFrases[-1]]);
-  };
+    frases_seleccionadas = nuevasFrases.slice(1, 4);
 
-  const actualizarRespuestas = () => {};
+    console.log(frases_seleccionadas);
+
+    let lista: Item[] = [];
+    sentecesToOrder.map((item, index) => {
+      let a: Item = { id: index, text: item.toString() };
+      lista.push(a);
+    });
+
+    changeCardItems(lista);
+  };
 
   return (
     <>
@@ -40,7 +52,7 @@ const AskText = ({ text }: Props) => {
           </li>
 
           <DndProvider backend={HTML5Backend}>
-            <Container />
+            <Container cardss={cardItems} />
           </DndProvider>
 
           <li className="listitem">
@@ -49,7 +61,7 @@ const AskText = ({ text }: Props) => {
         </ol>
       </div>
 
-      {alreadyAsked && (
+      {alreadyAsked ? (
         <>
           <button
             type="button"
@@ -57,6 +69,16 @@ const AskText = ({ text }: Props) => {
             onClick={generarPregunta}
           >
             Next Question
+          </button>
+        </>
+      ) : (
+        <>
+          <button
+            type="button"
+            className="btn btn-info"
+            onClick={verificarRespuestas}
+          >
+            Check Answers
           </button>
         </>
       )}

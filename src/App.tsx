@@ -169,15 +169,22 @@ function App() {
           <h1 className="p-5">Learn Helper</h1>
           <CreateRow somethingCreated={Manager} />
           <hr />
-          {AllData.map((item, index) => (
-            <SmallCard
-              key={index}
-              title={item.name}
-              onClick={StoredClicked}
-              data={item}
-              type={item.type}
-            />
-          ))}
+          {/* GRID */}
+          <div className="grid-class">
+            {/* ITEM GRID */}
+            {AllData.map((item, index) => (
+              <div className="grid-item" key={index}>
+                <SmallCard
+                  key={index}
+                  title={item.name}
+                  onClick={StoredClicked}
+                  data={item}
+                  type={item.type}
+                />
+              </div>
+            ))}
+            {/* END GRID */}
+          </div>
         </Page>
         <Page visible={createFormVisibility}>
           <CloseButton onClick={Manager} />
