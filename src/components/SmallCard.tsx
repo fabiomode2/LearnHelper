@@ -9,6 +9,9 @@ interface Props {
 
 export const SmallCard = ({ title, onClick, data, type }: Props) => {
   //style="width: 18rem;"
+
+  let texto = "Ask me!";
+  if (type == "Setting") texto = "Borrar Datos Almacenados";
   return (
     <>
       <div className="card m-2">
@@ -21,7 +24,7 @@ export const SmallCard = ({ title, onClick, data, type }: Props) => {
               onClick(type, data);
             }}
           >
-            Ask me!
+            {texto}
           </button>
         </div>
       </div>

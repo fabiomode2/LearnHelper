@@ -1,21 +1,3 @@
-//Implementacion de una relation para testeo mientras no implemento el almacenamiento de datos en el navegador
-// let dc: DataCard = {
-//   name: "Numeros en Ingles",
-//   data: [
-//     { exp: "one", men: "1" },
-//     { exp: "two", men: "2" },
-//     { exp: "three", men: "3" },
-//     { exp: "four", men: "4" },
-//     { exp: "five", men: "5" },
-//     { exp: "six", men: "6" },
-//     { exp: "seven", men: "7" },
-//     { exp: "eight", men: "8" },
-//     { exp: "nine", men: "9" },
-//     { exp: "ten", men: "10" },
-//   ],
-//   type: "relation",
-// };
-
 import "./App.css";
 import MainBoard from "./components/MainBoard";
 import CreateRow from "./components/CreateRow";
@@ -150,6 +132,7 @@ function App() {
     { name: "Volumen del prisma rectangular", formula: "V = A_base × h" },
   ]);
 
+  //quitamos a implementacio esta porque acabase o plazo
   localStorage.clear();
 
   const [MainTabVisibility, changeMainTabVisibility] = useState(true);
@@ -281,7 +264,6 @@ function App() {
     changeAllData(temp);
 
     localStorage.setItem("data", JSON.stringify(AllData));
-    console.log("data: ", localStorage.getItem("data"));
   };
 
   const Manager = (type: string) => {
@@ -329,6 +311,15 @@ function App() {
             ))}
             {/* END GRID */}
           </div>
+          {/* <SmallCard
+            key={"da"}
+            title={"Borrar Datos"}
+            onClick={() => {
+              localStorage.clear();
+            }}
+            data={{ name: ",", reldata: [], textdata: "", type: "Setting" }}
+            type={"Setting"}
+          /> */}
         </Page>
         <Page visible={viewFormulasVisibility}>
           <CloseButton onClick={Manager} />
