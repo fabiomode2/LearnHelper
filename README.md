@@ -18,7 +18,7 @@ Dependencies:
 npm install react
 ```
 ```cmd
-npm install immutability-helper ?? 
+npm install vite 
 ```
 ```cmd
 npm install bootstrap
