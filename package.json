@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d build -s src",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build"
+    "preview": "vite preview"
+
   },
+  "homepage": "http://fabiomode2.github.io/fabio_LearnHelper",
   "dependencies": {
     "bootstrap": "^5.3.2",
     "immutability-helper": "^3.1.1",
