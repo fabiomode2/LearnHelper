@@ -1,7 +1,7 @@
 import { useState, ChangeEvent } from "react";
 
 interface Props {
-  onDone: (name: String, form: String) => {};
+  onDone: (name: String, form: String) => void;
 }
 
 const NewForm = ({ onDone }: Props) => {
@@ -35,6 +35,8 @@ const NewForm = ({ onDone }: Props) => {
     <>
       <h2>Introduce a formula</h2>
 
+      <div className="mm-2"></div>
+
       <input
         type="text"
         className="form-control ta-c"
@@ -44,15 +46,18 @@ const NewForm = ({ onDone }: Props) => {
         placeholder="Name"
       ></input>
 
+      <div className="mm-2"></div>
+
       <input
         type="text"
-        className="form-control mm-2 ta-c"
+        className="form-control ta-c"
         aria-label="Large"
         aria-describedby="inputGroup-sizing-sm"
+        placeholder="Formula"
         onChange={changeForm}
       ></input>
 
-      <h3>{finalMsg}</h3>
+      <h3 className="mm-2">{finalMsg}</h3>
 
       <button
         type="button"
