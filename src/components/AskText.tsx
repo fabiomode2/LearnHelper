@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { seleccionarFrases } from "./utils";
+import { seleccionarFrases, ShuffleList } from "./utils";
 
 interface Props {
   text: string;
@@ -38,7 +38,11 @@ const AskText = ({ text }: Props) => {
     console.log("cambiando frases..");
 
     changeClueSentences([nuevasFrases[1], nuevasFrases[3]]);
-    frases_seleccionadas = [nuevasFrases[0], nuevasFrases[2], nuevasFrases[4]];
+    frases_seleccionadas = ShuffleList([
+      nuevasFrases[0],
+      nuevasFrases[2],
+      nuevasFrases[4],
+    ]);
     changeFraseCorrecta(nuevasFrases[2]);
     changeFrasesASeleccionar(frases_seleccionadas);
   };
